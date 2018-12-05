@@ -4,35 +4,39 @@ import com.mehdi.blockchainandroid.Model.POJOs.Transaction;
 
 import java.util.List;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+
+import io.reactivex.Observable;
+
+
 import retrofit2.Retrofit;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public class MultiAddressAPI
 {
-    public interface ChaseService
+    public interface MultiaddrService
     {
         // Put all API calls concerning Chases (games).
-        @GET("games")
-        Observable<List<Transaction>> getChasesList();
-
-        @GET("games/{game_id}/chasers")
-        Observable<List<Chaser>> getchasers(@Path("game_id") String game_id);
+        @GET("multiaddr")
+        Observable<List<Transaction>> getTransactions(@Query("active") String xpub);
 
     }
 
-    private ChaseService mChaseService;
+    private MultiaddrService multiaddrService;
 
     @Inject
-    public ChasesAPI(@Named("RetrofitAPI") Retrofit retrofit)
+    public MultiAddressAPI(@Named("RetrofitAPI") Retrofit retrofit)
     {
-        mChaseService = retrofit.create(ChaseService.class);
+        multiaddrService = retrofit.create(MultiaddrService.class);
     }
 
 
-    public ChaseService getChaseService()
+    public MultiaddrService getChaseService()
     {
-        return this.mChaseService;
+        return this.multiaddrService;
     }
 
 }
