@@ -3,6 +3,7 @@ package com.mehdi.blockchainandroid.UI;
 import android.content.BroadcastReceiver;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
+import android.support.test.espresso.idling.CountingIdlingResource;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -50,6 +51,10 @@ public class MainActivity extends AppCompatActivity
     //Receivers
     private BroadcastReceiver mNetworkReceiver;
 
+    //Idling Ressource for Espresso
+    CountingIdlingResource espressoTestIdlingResource = new CountingIdlingResource("Network_Call");
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -76,6 +81,7 @@ public class MainActivity extends AppCompatActivity
 
     private void Init_API_Calls()
     {
+        espressoTestIdlingResource.increment();
         multiAddressPresenter.loadTransactionsFromAPI();
     }
 
@@ -119,6 +125,9 @@ public class MainActivity extends AppCompatActivity
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventMainThread(TransactionEvent transactionEvent)
     {
+        //Test only
+        espressoTestIdlingResource.decrement();
+
         mRecyclerView.setVisibility(View.VISIBLE);
         errorview.setVisibility(View.GONE);
         updateView(transactionEvent.getTransactions());
@@ -129,12 +138,17 @@ public class MainActivity extends AppCompatActivity
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventMainThread(ErrorEvent errorEvent)
     {
+        //Test only
+        espressoTestIdlingResource.decrement();
+
         Log.d("transactiondebug", "Error");
         mRecyclerView.setVisibility(View.GONE);
         errorview.setVisibility(View.VISIBLE);
         errorview.setText("Error while fetching data, please check your internet connection");
        //
     }
-
+    public CountingIdlingResource getEspressoIdlingResourceForMainActivity() {
+        return espressoTestIdlingResource;
+    }
 
 }

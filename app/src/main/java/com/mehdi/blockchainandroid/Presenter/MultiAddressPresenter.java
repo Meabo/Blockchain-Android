@@ -59,7 +59,7 @@ public class MultiAddressPresenter
                 @Override
                 public void onError(Throwable e)
                 {
-
+                    EventBus.getDefault().post(new ErrorEvent("Error fetching data, please check your internet connection"));
                     e.printStackTrace();
                 }
 
