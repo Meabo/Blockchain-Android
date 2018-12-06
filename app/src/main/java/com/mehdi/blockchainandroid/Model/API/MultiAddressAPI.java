@@ -21,7 +21,7 @@ public class MultiAddressAPI
     {
         // Put all API calls concerning Chases (games).
         @GET("multiaddr")
-        Observable<List<Transaction>> getTransactions(@Query("active") String xpub);
+        Observable<Transaction> getTransactions(@Query("active") String xpub);
 
     }
 
@@ -34,7 +34,7 @@ public class MultiAddressAPI
     }
 
 
-    public MultiaddrService getChaseService()
+    public MultiaddrService getMultiaddrService()
     {
         return this.multiaddrService;
     }

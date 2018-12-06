@@ -11,7 +11,7 @@ public class Input {
     private PrevOut prevOut;
     @SerializedName("sequence")
     @Expose
-    private Integer sequence;
+    private Double sequence;
     @SerializedName("script")
     @Expose
     private String script;
@@ -27,11 +27,11 @@ public class Input {
         this.prevOut = prevOut;
     }
 
-    public Integer getSequence() {
+    public Double getSequence() {
         return sequence;
     }
 
-    public void setSequence(Integer sequence) {
+    public void setSequence(Double sequence) {
         this.sequence = sequence;
     }
 

@@ -48,7 +48,7 @@ public class Tx {
     private Integer balance;
     @SerializedName("time")
     @Expose
-    private Integer time;
+    private double time;
     @SerializedName("block_height")
     @Expose
     private Integer blockHeight;
@@ -163,11 +163,11 @@ public class Tx {
         this.balance = balance;
     }
 
-    public Integer getTime() {
+    public double getTime() {
         return time;
     }
 
-    public void setTime(Integer time) {
+    public void setTime(double time) {
         this.time = time;
     }
 

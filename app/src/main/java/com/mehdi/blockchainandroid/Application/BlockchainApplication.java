@@ -20,4 +20,8 @@ public class BlockchainApplication  extends Application
                 .networkModule(new NetworkModule())
                 .build();
     }
+
+    public AppComponent getAppComponent() {
+        return appComponent;
+    }
 }
